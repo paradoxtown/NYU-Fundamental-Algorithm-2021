@@ -85,24 +85,19 @@ class Solutions(object):
         if self.best_d[i][j] != -1:
             return self.best_d[i][j]
         # d.3
-        self.best_d[i][j] = max(self.dp_d(i + 1, j - 1) + max(self.v[i], self.v[j]),
-                                self.dp_d(i + 1, j) + self.v[i],
-                                self.dp_d(i, j - 1) + self.v[j],
-                                self.best_d[i][j])
+        self.best_d[i][j] = max(self.v[i] + sum(self.v[i+1:j+1]) - self.dp_d(i+1, j),
+                                self.v[j] + sum(self.v[i:j]) - self.dp_d(i, j-1))
 
         return self.best_d[i][j]
 
 
 if __name__ == '__main__':
-    v = [1, 3, 4, 1, 4, 5]
+    v = [6, 3, 4, 1, 4, 5]
+    # v = [4, 1, 3, 5]
+    # v = [1, 3, 5, 2]
     n = len(v)
+    print(n)
     solutions = Solutions(v)
-    solutions.part_a()
-    print(solutions.best)
-    solutions.part_b()
-    print(solutions.cups)
-    solutions.print_solution()
-    solutions.part_c()
-    print(solutions.best)
     solutions.part_d()
     print(solutions.best_d[1][n])
+
