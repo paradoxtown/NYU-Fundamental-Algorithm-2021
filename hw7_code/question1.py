@@ -46,9 +46,10 @@ class Solutions(object):
         # b.2
         i = self.n
         while i > 0:
-            j = i
-            for _ in range(self.cups[j]):
-                print(i)
+            cnt = self.cups[i]
+            while cnt > 0:
+                print(i, end=' ')
+                cnt -= 1
                 i -= 1
             i -= 1
         print()
@@ -91,7 +92,8 @@ class Solutions(object):
 
 
 if __name__ == '__main__':
-    v = [6, 3, 4, 1, 4, 5]
+    # v = [6, 3, 4, 1, 4, 5]
+    v = [1, 7, 1, 3, 3, 4, 5]
     # v = [4, 1, 3, 5]
     # v = [1, 3, 5, 2]
     n = len(v)
