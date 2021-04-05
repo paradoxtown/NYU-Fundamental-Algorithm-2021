@@ -46,9 +46,10 @@ class Solutions(object):
         # b.2
         i = self.n
         while i > 0:
-            j = i
-            for _ in range(self.cups[j]):
-                print(i)
+            cnt = self.cups[i]
+            while cnt > 0:
+                print(i, end=' ')
+                cnt -= 1
                 i -= 1
             i -= 1
         print()
@@ -60,13 +61,11 @@ class Solutions(object):
         self.best[1] = self.v[1]
         self.best[2] = self.v[1] + self.v[2]
         self.best[3] = self.v[2] + self.v[3]
-        self.best[4] = max(self.v[1] + self.v[4], self.v[3] + self.v[4])
+        # self.best[4] = max(self.v[1] + self.v[4], self.v[3] + self.v[4])
         for i in range(4, self.n + 1):
             # c.3
-            self.best[i] = max(self.best[i - 4] + self.v[i - 1] + self.v[i],
-                               self.best[i - 3] + self.v[i - 1] + self.v[i],
-                               self.best[i - 3] + self.v[i],
-                               self.best[i - 2] + self.v[i])
+            self.best[i] = max(self.v[i] + sum(self.v[:i]) - self.best[i-1],
+                               self.v[i] + self.v[i - 1] + sum(self.v[:i-1]) - self.best[i-2])
 
     def part_d(self):
         for i in range(self.n + 1):
@@ -76,8 +75,6 @@ class Solutions(object):
         # d.2
         for i in range(self.n + 1):
             self.best_d[i][i] = self.v[i]
-            if i + 1 <= self.n:
-                self.best_d[i][i + 1] = max(self.v[i], self.v[i + 1])
         self.dp_d(1, self.n)
 
     def dp_d(self, i, j):
@@ -91,9 +88,10 @@ class Solutions(object):
 
 
 if __name__ == '__main__':
-    v = [6, 3, 4, 1, 4, 5]
+    # v = [6, 10, 1, 2, 3, 4, 10, 4, 5]
     # v = [4, 1, 3, 5]
     # v = [1, 3, 5, 2]
+    v = [10, 5, 2, 10]
     n = len(v)
     print(n)
     solutions = Solutions(v)
@@ -102,6 +100,9 @@ if __name__ == '__main__':
     solutions.part_b()
     print(solutions.cups)
     solutions.print_solution()
+    solutions.part_c()
+    print(solutions.best)
     solutions.part_d()
+    print(solutions.best_d)
     print(solutions.best_d[1][n])
 
