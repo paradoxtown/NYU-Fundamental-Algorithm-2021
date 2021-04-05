@@ -88,9 +88,6 @@ class Solutions(object):
 
 
 if __name__ == '__main__':
-    # v = [6, 10, 1, 2, 3, 4, 10, 4, 5]
-    # v = [4, 1, 3, 5]
-    # v = [1, 3, 5, 2]
     v = [10, 5, 2, 10]
     n = len(v)
     print(n)
